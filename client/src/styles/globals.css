@@ -1,0 +1,121 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-lime: #ccff00;
+  --color-teal: #14b8a6;
+  --color-dark: #0f172a;
+  --color-slate-900: #0f172a;
+  --color-slate-800: #1e293b;
+  --color-slate-700: #334155;
+  --color-slate-600: #475569;
+  --color-slate-100: #f1f5f9;
+  --color-slate-200: #e2e8f0;
+  --color-red: #ef4444;
+  --color-orange: #f97316;
+  --color-green: #22c55e;
+}
+
+body {
+  @apply bg-slate-950 text-slate-100 antialiased;
+}
+
+.dark body {
+  @apply bg-slate-950 text-slate-100;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-slate-900;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-slate-700 rounded hover:bg-slate-600;
+}
+
+/* Smooth animations */
+* {
+  @apply transition-colors duration-200;
+}
+
+.card {
+  @apply bg-slate-800 border border-slate-700 rounded-lg p-4 hover:border-slate-600 hover:bg-slate-800/80;
+}
+
+.btn-primary {
+  @apply bg-lime-500 text-slate-950 font-semibold py-2 px-4 rounded-lg hover:bg-lime-400 transition-all duration-200 active:scale-95;
+}
+
+.btn-secondary {
+  @apply border border-slate-600 text-slate-100 font-semibold py-2 px-4 rounded-lg hover:border-lime-500 hover:text-lime-500 transition-all duration-200 active:scale-95;
+}
+
+.input-field {
+  @apply bg-slate-700 border border-slate-600 text-slate-100 rounded-lg px-3 py-2 focus:outline-none focus:border-lime-500 focus:ring-1 focus:ring-lime-500/50;
+}
+
+.glass {
+  @apply backdrop-blur-md bg-white/10 border border-white/20 rounded-lg;
+}
+
+.gradient-lime {
+  @apply bg-gradient-to-r from-lime-500 to-teal-500;
+}
+
+/* Animations */
+@keyframes shimmer {
+  0% { background-position: -1000px 0; }
+  100% { background-position: 1000px 0; }
+}
+
+.shimmer {
+  animation: shimmer 2s infinite;
+  background: linear-gradient(90deg, rgba(203, 213, 225, 0.1) 25%, rgba(203, 213, 225, 0.2) 50%, rgba(203, 213, 225, 0.1) 75%);
+  background-size: 1000px 100%;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.3s ease-out;
+}
+
+/* Utility classes */
+.text-lime {
+  @apply text-lime-500;
+}
+
+.text-teal {
+  @apply text-teal-500;
+}
+
+.border-lime {
+  @apply border-lime-500;
+}
+
+.border-teal {
+  @apply border-teal-500;
+}
+
+.bg-lime-dark {
+  @apply bg-lime-500/10;
+}
+
+.bg-teal-dark {
+  @apply bg-teal-500/10;
+}

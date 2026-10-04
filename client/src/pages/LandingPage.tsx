@@ -1,49 +1,42 @@
-import React, { useMemo } from 'react'
-import { BarChart3, Database, FileText, Gauge, LayoutGrid, Settings, Sparkles, Globe2, BrainCircuit, Bell, Search, Sun, Moon, ArrowRight, Plus, Upload, Download, Filter, Zap, ShieldCheck, BookOpenText, Languages, CheckCircle2, AlertTriangle, FolderKanban, Activity, TrendingUp, Layers3, FileUp, Rocket, ArrowUpRight } from 'lucide-react'
+import React from 'react'
+import { useNavigate } from 'react-router-dom'
+import { BarChart3, Database, FileText, Gauge, LayoutGrid, Settings, Sparkles, Globe2, BrainCircuit, Bell, Search, Sun, Moon, ArrowRight, Upload, Download, Filter, Zap, ShieldCheck, BookOpenText, Languages, CheckCircle2, AlertTriangle, FolderKanban, Activity, TrendingUp, Layers3, FileUp, Rocket, ArrowUpRight, LayoutDashboard } from 'lucide-react'
 import { useThemeStore } from '@/hooks/useThemeStore'
 import { navigation, metrics, featureCards, sampleProjects } from '@/lib/constants'
 import { useDataStore } from '@/hooks/useDataStore'
-import { useNavigate } from 'react-router-dom'
 
 export function LandingPage() {
-  const { isDark, toggleTheme, language } = useThemeStore()
+  const { isDark, toggleTheme } = useThemeStore()
   const datasets = useDataStore((state) => state.datasets)
   const navigate = useNavigate()
 
-  const topMetrics = useMemo(() => [
+  const topMetrics = [
     { label: 'Datasets', value: datasets.length || 12, icon: Database },
     { label: 'Analyses', value: 248, icon: BrainCircuit },
     { label: 'Charts', value: 67, icon: BarChart3 },
     { label: 'Reports', value: 24, icon: FileText },
-  ], [datasets.length])
+  ]
 
   return (
     <div className={`min-h-screen ${isDark ? 'bg-slate-950 text-slate-100' : 'bg-slate-50 text-slate-900'}`}>
       <header className="border-b border-slate-700/80 bg-slate-900/70 backdrop-blur-xl sticky top-0 z-50">
         <div className="mx-auto max-w-7xl px-4 py-4 flex items-center justify-between gap-4">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-lime-400/20 border border-lime-400/40 flex items-center justify-center text-lime-400 font-black">IF</div>
+          <div className="flex items-center gap-3 flex-1">
+            <div className="w-10 h-10 rounded-xl bg-lime-400/20 border border-lime-400/40 flex items-center justify-center text-lime-400 font-black text-sm">IF</div>
             <div>
               <p className="text-xs uppercase tracking-[0.3em] text-slate-400">InsightForge</p>
-              <h1 className="text-xl font-bold">Turn Raw Data Into Decisions</h1>
+              <h1 className="font-bold">Turn Raw Data Into Decisions</h1>
             </div>
           </div>
 
-          <div className="hidden md:flex items-center gap-3 flex-1 max-w-xl justify-center">
-            <div className="w-full flex items-center gap-2 rounded-full border border-slate-700 bg-slate-800 px-3 py-2">
-              <Search className="w-4 h-4 text-slate-400" />
-              <input value="" readOnly className="bg-transparent border-0 outline-none flex-1 text-sm placeholder:text-slate-500" placeholder="Search insights, datasets, projects..." />
-            </div>
-          </div>
-
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2">
             <button className="p-2 rounded-full border border-slate-700 bg-slate-800" onClick={toggleTheme}>
               {isDark ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
             </button>
-            <button className="p-2 rounded-full border border-slate-700 bg-slate-800">
-              <Bell className="w-4 h-4" />
+            <button className="p-2 rounded-full border border-slate-700 bg-slate-800" onClick={() => navigate('/settings')}>
+              <Settings className="w-4 h-4" />
             </button>
-            <button className="btn-primary" onClick={() => navigate('/dashboard')}>Explore InsightForge</button>
+            <button className="btn-primary" onClick={() => navigate('/dashboard')}>Launch</button>
           </div>
         </div>
       </header>
@@ -54,26 +47,17 @@ export function LandingPage() {
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-lime-500/40 bg-lime-500/10 text-lime-300 text-xs uppercase tracking-[0.2em] font-semibold mb-6">
               <Sparkles className="w-4 h-4" /> Local Demo Mode
             </div>
-
-            <h2 className="text-5xl md:text-7xl font-black leading-[0.9] tracking-tight mb-6">
-              Turn raw data<br />
-              into <span className="text-lime-400">decisions.</span>
-            </h2>
-
-            <p className="max-w-xl text-xl text-slate-300 mb-10">
-              InsightForge is an intelligent data analysis platform for students, researchers, and businesses — bringing data validation, AI insight, predictions, and decisions into one professional workspace.
-            </p>
-
+            <h2 className="text-5xl md:text-6xl font-black leading-[0.9] tracking-tight mb-6">Turn raw data<br />into <span className="text-lime-400">decisions.</span></h2>
+            <p className="max-w-xl text-lg text-slate-300 mb-10">InsightForge is an intelligent data analysis platform for students, researchers, and businesses — bringing data validation, AI insight, predictions, and decisions into one professional workspace.</p>
             <div className="flex flex-wrap items-center gap-4">
               <button className="btn-primary text-lg px-6 py-3" onClick={() => navigate('/dashboard')}>Try Sample Dataset</button>
               <button className="btn-secondary text-lg px-6 py-3" onClick={() => navigate('/data-analysis')}>Import Data</button>
             </div>
-
             <div className="mt-8 flex flex-wrap gap-3">
-              <span className="px-3 py-1 rounded-full bg-slate-800 border border-slate-700 text-sm">CSV</span>
-              <span className="px-3 py-1 rounded-full bg-slate-800 border border-slate-700 text-sm">JSON</span>
-              <span className="px-3 py-1 rounded-full bg-slate-800 border border-slate-700 text-sm">Analytics</span>
-              <span className="px-3 py-1 rounded-full bg-slate-800 border border-slate-700 text-sm">50+ Languages</span>
+              <span className="px-3 py-1 rounded-full bg-slate-800 border border-slate-700 text-xs">CSV</span>
+              <span className="px-3 py-1 rounded-full bg-slate-800 border border-slate-700 text-xs">JSON</span>
+              <span className="px-3 py-1 rounded-full bg-slate-800 border border-slate-700 text-xs">Analytics</span>
+              <span className="px-3 py-1 rounded-full bg-slate-800 border border-slate-700 text-xs">50+ Languages</span>
             </div>
           </div>
 
@@ -91,18 +75,14 @@ export function LandingPage() {
                 </div>
                 <span className="px-2 py-1 rounded-full bg-lime-500/20 text-lime-300 text-xs font-semibold">Live</span>
               </div>
-
               <div className="space-y-4">
                 <div className="card p-4">
                   <div className="flex items-center justify-between mb-2">
                     <span className="text-sm text-slate-400">Dataset quality</span>
                     <span className="text-lime-400 font-semibold">91%</span>
                   </div>
-                  <div className="h-2 rounded-full bg-slate-700">
-                    <div className="h-2 w-[91%] rounded-full bg-gradient-to-r from-lime-400 to-teal-400"></div>
-                  </div>
+                  <div className="h-2 rounded-full bg-slate-700"><div className="h-2 w-[91%] rounded-full bg-gradient-to-r from-lime-400 to-teal-400"></div></div>
                 </div>
-
                 <div className="grid grid-cols-2 gap-4">
                   <div className="card p-4">
                     <p className="text-sm text-slate-400 mb-2">Total rows</p>
@@ -112,14 +92,6 @@ export function LandingPage() {
                     <p className="text-sm text-slate-400 mb-2">Signals</p>
                     <p className="text-3xl font-bold">28</p>
                   </div>
-                </div>
-
-                <div className="card p-4">
-                  <div className="flex items-center justify-between mb-3">
-                    <span className="font-semibold">Key recommendation</span>
-                    <TrendingUp className="w-4 h-4 text-lime-400" />
-                  </div>
-                  <p className="text-slate-300">Inventory movement shows strongest momentum in Product A and improving retention in Channel B.</p>
                 </div>
               </div>
             </div>
@@ -147,7 +119,6 @@ export function LandingPage() {
             <div className="w-10 h-10 rounded-xl bg-lime-500/10 text-lime-400 border border-lime-500/30 flex items-center justify-center"><Rocket className="w-5 h-5" /></div>
             <h3 className="text-4xl font-black">Feature Overview</h3>
           </div>
-
           <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-4">
             {featureCards.map((card) => (
               <div key={card.title} className="card p-6">
@@ -156,39 +127,6 @@ export function LandingPage() {
                 </div>
                 <h4 className="text-xl font-bold mb-2">{card.title}</h4>
                 <p className="text-slate-300">{card.description}</p>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        <section className="mb-20">
-          <div className="flex items-center justify-between mb-8">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 flex items-center justify-center">
-                <FolderKanban className="w-5 h-5" />
-              </div>
-              <h3 className="text-4xl font-black">Recent Projects</h3>
-            </div>
-            <button className="btn-secondary">View all</button>
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-5">
-            {sampleProjects.map((project) => (
-              <div key={project.name} className="card p-5">
-                <div className="flex items-center justify-between mb-4">
-                  <div>
-                    <h4 className="text-xl font-bold">{project.name}</h4>
-                    <p className="text-sm text-slate-400">{project.owner}</p>
-                  </div>
-                  <span className="px-2 py-1 rounded-full bg-slate-800 border border-slate-700 text-xs">{project.status}</span>
-                </div>
-                <div className="mb-3 h-2 rounded-full bg-slate-700 overflow-hidden">
-                  <div className="h-full rounded-full bg-gradient-to-r from-lime-400 to-cyan-400" style={{ width: `${project.progress}%` }} />
-                </div>
-                <div className="flex justify-between text-sm text-slate-300">
-                  <span>{project.progress}% complete</span>
-                  <button className="text-lime-400 inline-flex items-center gap-1">Open <ArrowUpRight className="w-4 h-4" /></button>
-                </div>
               </div>
             ))}
           </div>
